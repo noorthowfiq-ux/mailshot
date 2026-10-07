@@ -10,7 +10,7 @@ app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
 app.get('/api/health', (req, res) => res.json({ ok: true, uptime: process.uptime() }));
-
+app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/campaigns', require('./routes/campaign.routes'));
 
 // anything that didn't match a route

@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const Campaign = require('../models/Campaign');
 const { processCampaign } = require('../services/campaignService');
+const requireAuth = require('../middleware/auth');
 
+router.use(requireAuth);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_RECIPIENTS = 100;
 
