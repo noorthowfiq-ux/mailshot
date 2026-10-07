@@ -11,5 +11,11 @@ app.use(morgan('dev'));
 
 app.get('/api/health', (req, res) => res.json({ ok: true, uptime: process.uptime() }));
 
+app.use('/api/dev', require('./routes/dev.routes'));
+
+const connectDB = require('./config/db');
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));
+
+connectDB().then(() => {
+  app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));
+});
