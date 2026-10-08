@@ -11,7 +11,7 @@ export default function Compose() {
   const [campaign, setCampaign] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  // parse the textarea: split on commas / newlines / spaces, dedupe
+ 
   const parsed = useMemo(() => {
     const list = recipients.split(/[\s,;]+/).map((s) => s.trim().toLowerCase()).filter(Boolean);
     return [...new Set(list)];
@@ -20,7 +20,7 @@ export default function Compose() {
   const valid = parsed.filter((e) => EMAIL_RE.test(e));
   const invalid = parsed.filter((e) => !EMAIL_RE.test(e));
 
-  // poll the campaign while it's in flight
+  
   useEffect(() => {
     if (!campaign || campaign.status !== 'sending') return;
     const timer = setInterval(async () => {

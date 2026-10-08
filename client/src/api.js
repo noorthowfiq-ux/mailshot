@@ -13,7 +13,7 @@ export default async function api(path, options = {}) {
 
   const data = await res.json().catch(() => ({}));
 
-  // token expired / never had one — bounce to login
+ 
   if (res.status === 401 && !path.startsWith('/auth')) {
     localStorage.removeItem('token');
     window.location.assign('/login');

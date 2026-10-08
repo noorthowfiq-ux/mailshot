@@ -7,7 +7,7 @@ router.use(requireAuth);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_RECIPIENTS = 100;
 
-// create a campaign and kick off background sending
+
 router.post('/', async (req, res) => {
   try {
     const { subject, body, recipients } = req.body || {};
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       recipients: list.map((email) => ({ email })),
     });
 
-    // intentionally NOT awaited — the client polls GET /:id for progress
+    
     processCampaign(campaign._id).catch((err) => {
       console.error('[mailer] processor crashed:', err);
     });
@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// recent history
+
 router.get('/', async (req, res) => {
   try {
     const campaigns = await Campaign.find({})
@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// one campaign — used for live polling
+
 router.get('/:id', async (req, res) => {
   try {
     const campaign = await Campaign.findById(req.params.id);

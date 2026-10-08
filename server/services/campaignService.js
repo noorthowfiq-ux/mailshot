@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const Campaign = require('../models/Campaign');
 const transport = require('../config/mailer');
 
-// pause between messages so we don't trip SMTP rate limits
+
 const DELAY_MS = Number(process.env.SEND_DELAY_MS || 400);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -35,7 +35,7 @@ async function processCampaign(campaignId) {
       r.status = 'failed';
       r.error = err.message;
     }
-    // save after each recipient so the polling endpoint sees live progress
+   
     await campaign.save();
     await sleep(DELAY_MS);
   }
@@ -51,7 +51,6 @@ async function processCampaign(campaignId) {
   console.log(`[mailer] campaign ${campaignId} finished — ${campaign.status}`);
 }
 
-// TODO: if the server restarts mid-campaign it stays stuck on "sending".
-// Needs a proper job queue (BullMQ) — fine for now, noted in the README.
+
 
 module.exports = { processCampaign };
